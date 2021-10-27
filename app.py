@@ -11,7 +11,7 @@ import base64
 import random
 import scipy.interpolate
 
-from util import ActiveHoursFeature, CadenceFeature, GaitFeature, KneeFlexionFeature, LyingAdlFeature, Phase, SittingAdlFeature, StepWidthFeature, StrideLengthFeature, TugScoreFeature
+from util import ActiveHoursFeature, CadenceFeature, GaitFeature, KneeFlexionFeature, LyingAdlFeature, Phase, SittingAdlFeature, StepWidthFeature, StepLengthFeature, TugScoreFeature
 from contextlib import contextmanager
 from io import StringIO
 from streamlit.report_thread import REPORT_CONTEXT_ATTR_NAME
@@ -124,7 +124,7 @@ phase_5 = Phase('Phase_5')
 phase_1.add_features(
     {
         'Gait_Speed': GaitFeature(),
-        'Stride_Length': StrideLengthFeature(),
+        'Step_Length': StepLengthFeature(),
         'Step_Width': StepWidthFeature(),
         'Tug_Score': TugScoreFeature(),
         'Cadence': CadenceFeature(),
@@ -137,7 +137,7 @@ phase_1.add_features(
 phase_2.add_features(
     {
         'Gait_Speed': GaitFeature(),
-        'Stride_Length': StrideLengthFeature(),
+        'Step_Length': StepLengthFeature(),
         'Step_Width': StepWidthFeature(),
         'Tug_Score': TugScoreFeature(),
         'Cadence': CadenceFeature(),
@@ -151,7 +151,7 @@ phase_2.add_features(
 phase_3.add_features(
     {
         'Gait_Speed': GaitFeature(),
-        'Stride_Length': StrideLengthFeature(),
+        'Step_Length': StepLengthFeature(),
         'Step_Width': StepWidthFeature(),
         'Tug_Score': TugScoreFeature(),
         'Cadence': CadenceFeature(),
@@ -165,7 +165,7 @@ phase_3.add_features(
 phase_4.add_features(
     {
         'Gait_Speed': GaitFeature(),
-        'Stride_Length': StrideLengthFeature(),
+        'Step_Length': StepLengthFeature(),
         'Step_Width': StepWidthFeature(),
         'Tug_Score': TugScoreFeature(),
         'Cadence': CadenceFeature(),
@@ -178,7 +178,7 @@ phase_4.add_features(
 phase_5.add_features(
     {
         'Gait_Speed': GaitFeature(),
-        'Stride_Length': StrideLengthFeature(),
+        'Step_Length': StepLengthFeature(),
         'Step_Width': StepWidthFeature(),
         'Tug_Score': TugScoreFeature(),
         'Cadence': CadenceFeature(),
@@ -215,12 +215,14 @@ with st.container():
                 * Phase 3 (Weak)
                 * Phase 4 (Dangerously weak)
                 * Phase 5 (Immobile)
-            4.  Configure the settings for the each phase. 
+            4.  Configure the settings for the each phase 
                 * The data generation link will only be activated once all phases are configured
                 * Phase intervals are left closed
             5.  Select the features required in the final data
             6.  For each phase configure the settings for each feature
-            7.  Click on generate link button to create hyper link to download the CSV file   
+            7. The units of features are not specified since ranges are being used to define the values generated
+                Keep in mind the assumed unit while interperating the results 
+            8.  Click on generate link button to create hyper link to download the CSV file   
             """)
 warning_holder = st.empty()
 st.sidebar.subheader('⚙️ Sytsem Configuration:')
@@ -231,7 +233,7 @@ selected_phase = st.sidebar.radio(
     (final_frame_phase), index=0)
 final_frame_features = st.sidebar.multiselect('Select the features to include in the final frame ?', 
                                                 ['Gait_Speed',
-                                                'Stride_Length',
+                                                'Step_Length',
                                                 'Step_Width',
                                                 'Tug_Score',
                                                 'Cadence',

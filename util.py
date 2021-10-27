@@ -121,7 +121,7 @@ class GaitFeature(BaseFeature):
         return 'Gait_Speed'
 
 
-class StrideLengthFeature(BaseFeature):
+class StepLengthFeature(BaseFeature):
     def __init__(self, start_default=36.4, end_default=114.6, noise_min=0.0, noise_max=5.0, noise_step=0.05, noise_default=0.0):
         self.start_default = start_default
         self.end_default = end_default
@@ -149,14 +149,14 @@ class StrideLengthFeature(BaseFeature):
                     if total_data_points > 0:
                         feature_data = self.get_feature_data(feature_start_base, feature_end_base, feature_space, 
                                                 feature_trend, feature_noise, total_data_points)
-                        feature_data_df = pd.DataFrame( feature_data[1], columns=['Stride_Length'], index=feature_data[0], dtype='float64')
-                        st.plotly_chart(px.line(x=list(feature_data_df.index), y=feature_data_df['Stride_Length'], title='Stride Length Data'),
+                        feature_data_df = pd.DataFrame( feature_data[1], columns=['Step_Length'], index=feature_data[0], dtype='float64')
+                        st.plotly_chart(px.line(x=list(feature_data_df.index), y=feature_data_df['Step_Length'], title='Step Length Data'),
                                         render_mode='auto', use_container_width=True, key=phase_name+'_'+feature_name+'_visualiser')
                     else:
                         st.warning('Number of data points not specified')
     
     def __str__(self):
-        return 'Stride_Length'
+        return 'Step_Length'
 
 
 class StepWidthFeature(BaseFeature):
