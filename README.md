@@ -1,4 +1,4 @@
-<h1>Synthetic Data Generator for Movement and Gait features </h1>
+<h1>Synthetic Data Generator for Mobility and Gait features </h1>
 <p>This web application is designed to create synthetic data for training AI models to quantify quality of gait and
     movement.
     These downstream AI models depend on feature assoicated with movement and gaits.
