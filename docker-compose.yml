@@ -1,0 +1,55 @@
+services:
+  synthetic-data-generator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mobility-synthetic-data-generator
+    ports:
+      - "127.0.0.1:8501:8501"
+    restart: unless-stopped
+    
+    # Security: Run as non-root (matches Dockerfile user)
+    user: "1000:1000"
+    
+    # Security: Resource limits (adjust based on your needs)
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    
+    # Security: Drop all capabilities
+    cap_drop:
+      - ALL
+    
+    # Security: Prevent privilege escalation
+    security_opt:
+      - no-new-privileges:true
+    
+    # Security: Disable privileged mode
+    privileged: false
+    
+    # Security: Network isolation
+    networks:
+      - data-generator-net
+    
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8501/"]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+    
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  data-generator-net:
+    driver: bridge
+    internal: false

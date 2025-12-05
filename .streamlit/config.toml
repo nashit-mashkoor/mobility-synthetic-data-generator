@@ -1,2 +1,11 @@
 [theme]
-base="dark"
+base = "dark"
+
+[server]
+headless = true
+enableXsrfProtection = true
+maxUploadSize = 10
+
+[browser]
+gatherUsageStats = false
+serverAddress = "localhost"
