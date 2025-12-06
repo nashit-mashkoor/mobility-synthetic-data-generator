@@ -103,7 +103,7 @@ def generate_data(include_features, include_phases, phases, include_dates=False)
 # App setting
 st.set_page_config(
     page_title="Synthetic Gait Data Generator", layout="wide", initial_sidebar_state="collapsed",
-    page_icon='🚶'
+    page_icon='📊'
 )
 
 # Custom CSS for beautiful styling
